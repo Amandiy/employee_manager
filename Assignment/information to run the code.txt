@@ -1,0 +1,5 @@
+1)open the visual studio code.
+2)open the relevent folde.
+3)open the terminal.
+4)go to Assignment/client folder and type "npm start"(open frontend)
+5)then go to Assignment/server folder and type "npm start"(backend)
