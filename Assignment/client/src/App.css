@@ -1,34 +1,32 @@
-body {
-  background: white;
 
-}
 
 .sub-main{
-  display: flex;
-  justify-content:center ;
+  display:flex;
   width: 600px;
-  height: 800px;
+  height: auto;
   padding-top: 0px;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(238, 246, 0, 0.4);
   border-radius: 10px;
   background-color: #DBD884 60%;
   position:sticky;
   left: 459px;
   top: 100px;
+
 }
 
 .up-sub-main{
-  display: flex;
+  display: auto;
   justify-content:center ;
   width: 600px;
-  height: 800px;
+  height: auto;
   padding-top: 30px;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(7, 103, 205, 0.4);
   border-radius: 10px;
-  background-color: #DBD884 60%;
-  position: absolute;
+  background-color: #e5de0d 60%;
+  position:absolute;
   left: 459px;
   top: 100px;
+  
   
   
 }

@@ -8,9 +8,11 @@ import {
   Input,
   Select,
   MenuItem,
+  Box,
 } from "@mui/material";
 import { editEmployee, getUser } from "../service/api";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import backgroundPhoto from "../background/zzzz.jpg";
 
 const Container = styled(FormGroup)`
   width: 50%;
@@ -18,6 +20,19 @@ const Container = styled(FormGroup)`
 
   & > div {
     margin-top: 20px;
+  }
+`;
+
+const ErrorMessage = styled(Box)`
+  background-color: white;
+  padding: 8px;
+  color: black;
+  margin-top: 8px;
+  opacity: 0;
+  border: 2px solid red;
+  transition: opacity 0.3s ease;
+  &.show {
+    opacity: 1;
   }
 `;
 
@@ -58,13 +73,13 @@ const EditEmployee = () => {
 
     if (!user.fname || !/^[A-Za-z]{6,10}$/.test(user.fname)) {
       errors.fname =
-        "First name is required and should have 6-10 alphabetic characters.";
+        "Should not be null and First name is required and should have 6-10 alphabetic characters.";
       isValid = false;
     }
 
     if (!user.lname || !/^[A-Za-z]{6,10}$/.test(user.lname)) {
       errors.lname =
-        "Last name is required and should have 6-10 alphabetic characters.";
+        "Should not be null and Last name is required and should have 6-10 alphabetic characters.";
       isValid = false;
     }
 
@@ -100,15 +115,23 @@ const EditEmployee = () => {
   };
 
   return (
-    <div>
-      <Button
-        variant="contained"
-        style={{ marginTop: 75 }}
-        component={Link}
-        to={`/`}
-      >
-        Employee List
-      </Button>
+    <div
+      style={{
+        backgroundImage: `url(${backgroundPhoto})`,
+        backgroundSize: "cover",
+        minHeight: "175vh",
+      }}
+    >
+      <div>
+        <Button
+          variant="contained"
+          style={{ marginTop: 75 }}
+          component={Link}
+          to={`/`}
+        >
+          Employee List
+        </Button>
+      </div>
 
       <div className="up-sub-main">
         <Container>
@@ -124,9 +147,9 @@ const EditEmployee = () => {
               value={user.fname}
             />
             {validationErrors.fname && (
-              <Typography variant="caption" color="error">
+              <ErrorMessage className={validationErrors.fname && 'show'}>
                 {validationErrors.fname}
-              </Typography>
+              </ErrorMessage>
             )}
           </FormControl>
 
@@ -140,9 +163,9 @@ const EditEmployee = () => {
               value={user.lname}
             />
             {validationErrors.lname && (
-              <Typography variant="caption" color="error">
+              <ErrorMessage className={validationErrors.lname && 'show'}>
                 {validationErrors.lname}
-              </Typography>
+              </ErrorMessage>
             )}
           </FormControl>
 
@@ -156,9 +179,9 @@ const EditEmployee = () => {
               value={user.email}
             />
             {validationErrors.email && (
-              <Typography variant="caption" color="error">
+              <ErrorMessage className={validationErrors.email && 'show'}>
                 {validationErrors.email}
-              </Typography>
+              </ErrorMessage>
             )}
           </FormControl>
 
@@ -172,9 +195,9 @@ const EditEmployee = () => {
               value={user.phone}
             />
             {validationErrors.phone && (
-              <Typography variant="caption" color="error">
+              <ErrorMessage className={validationErrors.phone && 'show'}>
                 {validationErrors.phone}
-              </Typography>
+              </ErrorMessage>
             )}
           </FormControl>
 
@@ -191,9 +214,9 @@ const EditEmployee = () => {
               <MenuItem value="female">Female</MenuItem>
             </Select>
             {validationErrors.gender && (
-              <Typography variant="caption" color="error">
+              <ErrorMessage className={validationErrors.gender && 'show'}>
                 {validationErrors.gender}
-              </Typography>
+              </ErrorMessage>
             )}
           </FormControl>
 
@@ -202,6 +225,7 @@ const EditEmployee = () => {
           <FormControl>
             <Button
               variant="contained"
+              style={{ width: 200, right: -245, bottom: 12 }}
               onClick={() => editEmployeeDetails()}
             >
               Update Employee
@@ -214,3 +238,5 @@ const EditEmployee = () => {
 };
 
 export default EditEmployee;
+
+

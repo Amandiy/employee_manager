@@ -2,24 +2,37 @@ import { useState } from "react";
 import {
   FormControl,
   FormGroup,
-  InputLabel,
-  TextField,
   MenuItem,
   Select,
   Typography,
   styled,
   Button,
   Input,
+  Box
 } from "@mui/material";
 import { addEmployee } from "../service/api";
 import { useNavigate } from "react-router-dom";
 import {Link} from 'react-router-dom';
+import backgroundPhoto from "../background/bbbb.jpg";
 
 const Container = styled(FormGroup)`
   width: 50%;
   margin: 5% auto 0 auto;
   & > div {
     margin-top: 20px;
+  }
+`;
+
+const ErrorMessage = styled(Box)`
+  background-color: white;
+  padding: 8px;
+  color: black;
+  margin-top: 8px;
+  opacity: 0;
+  border: 2px solid red;
+  transition: opacity 0.3s ease;
+  &.show {
+    opacity: 1;
   }
 `;
 
@@ -46,12 +59,12 @@ const AddEmployee = () => {
     let isValid = true;
 
     if (!user.fname || !/^[A-Za-z]{6,10}$/.test(user.fname)) {
-      errors.fname = "First name is required and should have 6-10 alphabetic characters.";
+      errors.fname = "Should not be null and and First name is required and should have 6-10 alphabetic characters.";
       isValid = false;
     }
 
     if (!user.lname || !/^[A-Za-z]{6,10}$/.test(user.lname)) {
-      errors.lname = "Last name is required and should have 6-10 alphabetic characters.";
+      errors.lname = "Should not be null and Last name is required and should have 6-10 alphabetic characters.";
       isValid = false;
     }
 
@@ -80,104 +93,120 @@ const AddEmployee = () => {
       await addEmployee(user);
       navigate("/");
     }
+    
   };
 
   return (
+  <div
+      style={{
+        backgroundImage: `url(${backgroundPhoto})`,
+        backgroundSize: "cover",
+        minHeight: "100vh",
+      }}
+    >
     <div>
+     </div>
        <Button variant="contained" style={{marginTop:75}} component={Link} to={`/`}>Employee List</Button>
    
       <div className="sub-main">
         <Container>
           <Typography variant="h4">Add Employee</Typography>
           <FormControl error={!!validationErrors.fname}>
-            <lable><b>First Name</b></lable>
+            <label>
+              <b>First Name</b>
+            </label>
             <Input
               onChange={(e) => onValueChange(e)}
               name="fname"
-              required
+              value={user.fname}
             />
             {validationErrors.fname && (
-              <Typography variant="caption" color="error">
+              <ErrorMessage className={validationErrors.fname && 'show'}>
                 {validationErrors.fname}
-              </Typography>
+              </ErrorMessage>
             )}
           </FormControl>
-          <br></br>
 
           <FormControl error={!!validationErrors.lname}>
-            <lable><b>Last Name</b></lable>
+            <label>
+              <b>Last Name</b>
+            </label>
             <Input
               onChange={(e) => onValueChange(e)}
               name="lname"
-              required
+              value={user.lname}
             />
             {validationErrors.lname && (
-              <Typography variant="caption" color="error">
+              <ErrorMessage className={validationErrors.lname && 'show'}>
                 {validationErrors.lname}
-              </Typography>
+              </ErrorMessage>
             )}
           </FormControl>
-          <br></br>
 
           <FormControl error={!!validationErrors.email}>
-            <lable><b>Email Address</b></lable>
+            <label>
+              <b>Email Address</b>
+            </label>
             <Input
               onChange={(e) => onValueChange(e)}
               name="email"
-              required
+              value={user.email}
             />
             {validationErrors.email && (
-              <Typography variant="caption" color="error">
+              <ErrorMessage className={validationErrors.email && 'show'}>
                 {validationErrors.email}
-              </Typography>
+              </ErrorMessage>
             )}
           </FormControl>
-          <br></br>
 
           <FormControl error={!!validationErrors.phone}>
-            <lable><b>Phone Number</b></lable>
+            <label>
+              <b>Phone Number</b>
+            </label>
             <Input
               onChange={(e) => onValueChange(e)}
               name="phone"
-              required
+              value={user.phone}
             />
             {validationErrors.phone && (
-              <Typography variant="caption" color="error">
+              <ErrorMessage className={validationErrors.phone && 'show'}>
                 {validationErrors.phone}
-              </Typography>
+              </ErrorMessage>
             )}
           </FormControl>
-          <br></br>
 
           <FormControl error={!!validationErrors.gender}>
-            <lable><b>Gender</b></lable>
+            <label>
+              <b>Gender</b>
+            </label>
             <Select
               onChange={(e) => onValueChange(e)}
               name="gender"
               value={user.gender}
-              required
             >
               <MenuItem value="male">Male</MenuItem>
               <MenuItem value="female">Female</MenuItem>
             </Select>
             {validationErrors.gender && (
-              <Typography variant="caption" color="error">
+              <ErrorMessage className={validationErrors.gender && 'show'}>
                 {validationErrors.gender}
-              </Typography>
+              </ErrorMessage>
             )}
           </FormControl>
+
           <br />
-          
+         
             <FormControl>
               <Button
                 variant="contained"
+                style={{width:150,right: -280,bottom:20}}
                 onClick={() => addEmployeeDetails()}
               >
                 Add Employee
-              </Button>
+              </Button>  
             </FormControl>
-        
         </Container>
+       
       </div>
     </div>
   );

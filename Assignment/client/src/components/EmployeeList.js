@@ -21,7 +21,7 @@ background:#111111;
 const TBody = styled(TableRow)`
 &>td{
     background:#ffff;
-    font-size:10px;
+    font-size:15px;
 }`;
 
 const EmployeeList = () => {
