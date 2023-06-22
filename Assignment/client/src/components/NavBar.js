@@ -2,7 +2,7 @@ import {AppBar , Toolbar, styled} from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
 const Hearder = styled(AppBar)`
-background: #FFB400;
+background: #92bad6;
 position:fixed;
 top:0;
 `
